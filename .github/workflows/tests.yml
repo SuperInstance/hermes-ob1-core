@@ -1,0 +1,38 @@
+name: Hermes OB1 Core — Test Suite
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test-math-specialist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          pip install numpy pytest
+      - name: Run PredictiveSonarEngine tests
+        run: |
+          cd shells/agents/shell-math-specialist
+          python -m pytest tests/ -v
+
+  test-signal-specialist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          pip install numpy pytest
+      - name: Run TemporalSignatureAnalyzer tests
+        run: |
+          cd shells/agents/shell-signal-specialist
+          python -m pytest tests/ -v
